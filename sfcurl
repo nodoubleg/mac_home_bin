@@ -1,0 +1,42 @@
+#!/usr/bin/env ruby
+
+# sfcurl
+#
+# This curl that automatically uses your safari/webkit cookies.  Use it like you would 
+# normally use curl.  Report bugs to michael@nuttnet.net.  Or better yet, fork it from:
+#
+# http://gist.github.com/gists/393141
+#
+# Also for firefox: http://gist.github.com/393140
+
+require 'rubygems'
+require 'fileutils'
+require 'uri'
+require 'time'
+require 'plist'
+
+url = ARGV.select{|a| a =~ /http/ }.first
+host = URI.split(url)[2]
+top_level_host = host.split('.').slice(-2, 2).join('.')
+
+cookie_file = "#{ENV['HOME']}/Library/Cookies/Cookies.plist"
+
+db = Plist.parse_xml(cookie_file)
+
+File.open("/tmp/.sfcurl_cookie", "w") do |f|
+  db.each do |cookie|
+    next unless cookie['Domain'] =~ /#{top_level_host}$/
+
+    cookie_string = [cookie['Domain'],
+                     "TRUE",
+                     cookie['Path'],
+                     "FALSE",
+                     Time.parse(cookie['Expires'].to_s).to_i.to_s,
+                     cookie['Name'],
+                     cookie['Value']].join("\t")
+    f.write(cookie_string + "\n")
+  end
+end
+
+cmd = "curl " + ARGV.join(' ') + " --cookie /tmp/.sfcurl_cookie"
+Kernel.exec(cmd)
