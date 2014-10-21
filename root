@@ -1,6 +1,6 @@
 #!/bin/bash
-# SSH to a host as root via admin-00 in one step.
-# stupid hack for admin-00
+# SSH to a host as root via admin-01 in one step.
+# stupid hack for admin-01
 export TERM="xterm"
 if [ ! $1 ]
 then

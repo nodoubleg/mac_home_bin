@@ -1,2 +1,2 @@
-#!/bin/bash
-/System/Library/Frameworks/ScreenSaver.framework/Resources/ScreenSaverEngine.app/Contents/MacOS/ScreenSaverEngine
+#!/usr/bin/osascript
+tell application "System Events" to start current screen saver
