@@ -1,0 +1,8 @@
+#!/bin/bash
+domain=`facter domain`
+if [ $domain == 'net.msu.edu' ]
+then
+  ssh gmason@niska.local 'xscreensaver-command -lock'
+else
+  echo 'not at MSU, skipping linux lock'
+fi
