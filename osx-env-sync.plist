@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- 
+     Copy this to ~/Library/LaunchAgents/osx-env-sync.plist
+     then run launchctl load ~/Library/LaunchAgents/osx-env-sync.plist
+
+     to load new $PATH, unload and reload the service with launchctl
+     launchctl unload ~/Library/LaunchAgents/osx-env-sync.plist
+     launchctl load ~/Library/LaunchAgents/osx-env-sync.plist
+
+     or run ~/bin/osx-env-sync-now
+-->
+
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>osx-env-sync</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>bash</string>
+    <string>-l</string>
+    <string>-c</string>
+    <string>
+      $HOME/bin/osx-env-sync.sh
+    </string>
+  </array>
+  <key>RunAtLoad</key>
+  <true/>
+</dict>
+</plist>
