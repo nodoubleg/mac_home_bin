@@ -1,5 +1,0 @@
-#!/bin/bash
-# blasts git with shit. use carefully
-nowplaying=$(nowplaying | sed -e 's/[^a-zA-Z0-9\_\ /|-]*//g')
-git add -A
-git commit -a -m "$nowplaying"
